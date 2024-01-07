@@ -1,38 +1,53 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import "./Game.scss";
+import Confetti from "react-confetti";
+import soundReady from "./soundReady.mp3";
+//import soundHurry from "./soundHurry.mp3";
 
 const symbols = ["+", "-", "*", "/"];
+//const numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 const Game = () => {
   const [startGame, setStartGame] = useState(false);
   const [types, setTypes] = useState("+");
   const [wrong, setWrong] = useState(0);
   const [score, setScore] = useState(0);
-  const [count, setCount] = useState(60);
+  const [count, setCount] = useState(17);
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const [submit, setSubmit] = useState(false);
-  //const [confetti, setConfetti] = useState(false);
-  //const inputRef =useRef(null)
+  const [confetti, setConfetti] = useState(false);
+  // const audioRef =useRef();
 
   const randomNumber = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min);
   };
   const generateQuestion = () => {
-    if (types === "+" || types === "-") {
+    if (types === "+") {
       const num1 = randomNumber(0, 20);
       const num2 = randomNumber(0, 20);
       setQuestion(`${num1} ${types} ${num2}`);
+    }
+    if (types === "-") {
+      const num1 = randomNumber(0, 20);
+      const num2 = randomNumber(0, 20);
+      num1 > num2
+        ? setQuestion(`${num1} ${types} ${num2}`)
+        : setQuestion(`${num2} ${types} ${num1}`);
     } else {
       const num1 = randomNumber(1, 10);
       const num2 = randomNumber(1, 10);
       setQuestion(`${num1} ${types} ${num2}`);
     }
   };
+
   const startGameHandler = () => {
     if (!startGame) {
-      setStartGame(true);
-      generateQuestion();
+      new Audio(soundReady).play();
+      setTimeout(() => {
+        setStartGame(true);
+        generateQuestion();
+      }, 2500);
     }
   };
   const handleSubmit = () => {
@@ -75,7 +90,16 @@ const Game = () => {
         setInterval(() => {
           setCount((preState) => preState - 1);
         }, 1000);
+      if (count === 15) {
+        new Audio('src/component/soundHurry .mp3').play();
+      }
+      if (count === 0) setConfetti(true);
+      if (count ===0)  {new Audio('src/component/soundCongratulation.mp3').play()};
+
     }
+
+    //setConfetti(true);
+
     return () => {
       if (interval) clearInterval(interval);
     };
@@ -83,6 +107,14 @@ const Game = () => {
 
   return (
     <>
+      {confetti && (
+        <Confetti
+          width={window.innerWidth}
+          height={window.innerHeight}
+          numberOfPieces={2000}
+          recycle={false}
+        />
+      )}
       <div className="game-container">
         {!startGame ? (
           <div className="game-content">
@@ -108,7 +140,7 @@ const Game = () => {
               Start
             </div>
           </div>
-        ) : (
+        ) : count > 0 ? (
           <div className="calculator">
             <div className="wrong">
               Wrong: <strong>{wrong}</strong>
@@ -152,11 +184,27 @@ const Game = () => {
             <div className="n0" onClick={() => n("0")}>
               <button>0</button>
             </div>
+            
             <div className="reset" onClick={handleReset}>
               <button>Reset</button>
             </div>
             <div className="submit" onClick={handleSubmit}>
               <button>Submit</button>
+            </div>
+          </div>
+        ) : (
+          <div className="result">
+            <div className="credit1"> CONGRATULATION </div>
+            <br />
+            <div className="credit2">
+              Your Score: <div className="score1">{score} </div>
+            </div>
+            <div className="credit3">
+              {" "}
+              Best Score: <div className="score2"> ?</div>{" "}
+            </div>
+            <div className="reset" onClick={handleReset}>
+              <button>Reset</button>
             </div>
           </div>
         )}
