@@ -13,7 +13,7 @@ const Game = () => {
   const [types, setTypes] = useState("+");
   const [wrong, setWrong] = useState(0);
   const [score, setScore] = useState(0);
-  const [count, setCount] = useState(12);
+  const [count, setCount] = useState(60);
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const [submit, setSubmit] = useState(false);
@@ -69,7 +69,7 @@ const Game = () => {
     setStartGame(false);
     setWrong(0);
     setScore(0);
-    setCount(12);
+    setCount(60);
     setQuestion("");
     setAnswer("");
     setConfetti(false);
@@ -105,7 +105,7 @@ const Game = () => {
     setStartGame(false);
     setWrong(0);
     setScore(0);
-    setCount(12);
+    setCount(60);
     setQuestion("");
     setAnswer("");
     setConfetti(false);
