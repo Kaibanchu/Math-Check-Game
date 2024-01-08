@@ -64,7 +64,7 @@
     width: 20em;
     // outline: 1px solid black;
   
-    justify-content: space-between;
+   // justify-content: space-between;
   
     > .wrong {
       grid-area: wrong;
@@ -173,6 +173,24 @@
             }
      
      >.reset {
+        margin: 30px;
+     > button {
+        height: 3.5em;
+        width: 3.5em; 
+        font-size: 1em;   
+        background-color: inherit;
+        color: black;
+        border-radius: 50%;
+        background-color: lightgray;
+        cursor: pointer;
+        border: 1px solid transparent;
+      }
+      > button:hover {
+        color: rgb(237, 159, 14);
+        opacity: 0.75;
+      }
+    } 
+    >.clearStore { 
         margin: 10px;
      > button {
         height: 3.5em;
@@ -189,7 +207,8 @@
         color: rgb(237, 159, 14);
         opacity: 0.75;
       }
-      
-    }   
+
+    } 
+ 
    
 }  

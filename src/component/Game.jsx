@@ -4,15 +4,16 @@ import "./Game.scss";
 import Confetti from "react-confetti";
 import soundReady from "./soundReady.mp3";
 //import soundHurry from "./soundHurry.mp3";
-
+//const newScore= [];
 const symbols = ["+", "-", "*", "/"];
 //const numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 const Game = () => {
+  const [bestScore, setBestScore] = useState([]);
   const [startGame, setStartGame] = useState(false);
   const [types, setTypes] = useState("+");
   const [wrong, setWrong] = useState(0);
   const [score, setScore] = useState(0);
-  const [count, setCount] = useState(17);
+  const [count, setCount] = useState(12);
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const [submit, setSubmit] = useState(false);
@@ -53,7 +54,7 @@ const Game = () => {
   const handleSubmit = () => {
     if (count > 0) {
       const result = eval(question);
-      console.log(parseInt(result), parseInt(answer));
+      //console.log(parseInt(result), parseInt(answer));
       if (parseInt(result) === parseInt(answer)) {
         setScore(score + 1);
       } else {
@@ -68,7 +69,7 @@ const Game = () => {
     setStartGame(false);
     setWrong(0);
     setScore(0);
-    setCount(60);
+    setCount(12);
     setQuestion("");
     setAnswer("");
     setConfetti(false);
@@ -83,6 +84,34 @@ const Game = () => {
     setAnswer(wcAnswer + digit);
   };
   useEffect(() => {
+    if (count > 0 && startGame === true) {
+      setBestScore((prev) => {
+        const newScore = [...prev, score];
+        const jsonScore = JSON.stringify(newScore);
+        localStorage.setItem("bestScores", jsonScore);
+        return newScore;
+      });
+    }
+  }, [score]);
+
+  let maxScore = (JSON.parse(localStorage.getItem("bestScores")) ?? [0]).reduce(
+    function (a, b) {
+      return a > b ? a : b;
+    }
+  );
+
+  const handleClearStore = () => {
+    localStorage.removeItem("bestScores");
+    setStartGame(false);
+    setWrong(0);
+    setScore(0);
+    setCount(12);
+    setQuestion("");
+    setAnswer("");
+    setConfetti(false);
+  };
+
+  useEffect(() => {
     let interval = null;
     if (startGame) {
       interval =
@@ -91,15 +120,14 @@ const Game = () => {
           setCount((preState) => preState - 1);
         }, 1000);
       if (count === 15) {
-        new Audio('src/component/soundHurry .mp3').play();
+        new Audio("src/component/soundHurry .mp3").play();
       }
       if (count === 0) setConfetti(true);
-      if (count ===0)  {new Audio('src/component/soundCongratulation.mp3').play()};
-
+      if (count === 0) {
+        new Audio("src/component/soundCongratulation.mp3").play();
+      }
     }
-
     //setConfetti(true);
-
     return () => {
       if (interval) clearInterval(interval);
     };
@@ -184,7 +212,7 @@ const Game = () => {
             <div className="n0" onClick={() => n("0")}>
               <button>0</button>
             </div>
-            
+
             <div className="reset" onClick={handleReset}>
               <button>Reset</button>
             </div>
@@ -201,10 +229,13 @@ const Game = () => {
             </div>
             <div className="credit3">
               {" "}
-              Best Score: <div className="score2"> ?</div>{" "}
+              Best Score: <div className="score2">{maxScore}</div>{" "}
             </div>
             <div className="reset" onClick={handleReset}>
               <button>Reset</button>
+            </div>
+            <div className="clearStore" onClick={handleClearStore}>
+              <button>Clear Store</button>
             </div>
           </div>
         )}
