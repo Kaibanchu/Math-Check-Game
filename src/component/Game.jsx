@@ -8,47 +8,47 @@ import soundReady from "./soundReady.mp3";
 const symbols = ["+", "-", "*", "/"];
 //const numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 const Game = () => {
+  const [min, setMin] = useState("");
+  const [max, setMax] = useState("");
   const [bestScore, setBestScore] = useState([]);
   const [startGame, setStartGame] = useState(false);
   const [types, setTypes] = useState("+");
   const [wrong, setWrong] = useState(0);
   const [score, setScore] = useState(0);
-  const [count, setCount] = useState(12);
+  const [count, setCount] = useState(60);
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const [submit, setSubmit] = useState(false);
   const [confetti, setConfetti] = useState(false);
-  // const audioRef =useRef();
 
-  const randomNumber = (min, max) => {
-    return Math.floor(Math.random() * (max - min + 1) + min);
+  // const audioRef =useRef();
+  const mins = min;
+  const maxs = max;
+
+  const randomNumber = (a, b) => {
+    return Math.floor(Math.random() * (b - a + 1) + a);
   };
   const generateQuestion = () => {
     if (types === "+") {
-      const num1 = randomNumber(0, 20);
-      const num2 = randomNumber(0, 20);
+      const num1 = randomNumber(Number(mins), Number(maxs));
+      const num2 = randomNumber(Number(mins), Number(maxs));
       setQuestion(`${num1} ${types} ${num2}`);
     }
     if (types === "-") {
-      const num1 = randomNumber(0, 20);
-      const num2 = randomNumber(0, 20);
+      const num1 = randomNumber(Number(mins), Number(maxs));
+      const num2 = randomNumber(Number(mins), Number(maxs));
       num1 > num2
         ? setQuestion(`${num1} ${types} ${num2}`)
         : setQuestion(`${num2} ${types} ${num1}`);
-    } else {
-      const num1 = randomNumber(1, 10);
-      const num2 = randomNumber(1, 10);
-      setQuestion(`${num1} ${types} ${num2}`);
     }
   };
-
   const startGameHandler = () => {
     if (!startGame) {
       new Audio(soundReady).play();
       setTimeout(() => {
         setStartGame(true);
         generateQuestion();
-      }, 2500);
+      }, 2000);
     }
   };
   const handleSubmit = () => {
@@ -69,7 +69,7 @@ const Game = () => {
     setStartGame(false);
     setWrong(0);
     setScore(0);
-    setCount(12);
+    setCount(60);
     setQuestion("");
     setAnswer("");
     setConfetti(false);
@@ -105,7 +105,7 @@ const Game = () => {
     setStartGame(false);
     setWrong(0);
     setScore(0);
-    setCount(12);
+    setCount(60);
     setQuestion("");
     setAnswer("");
     setConfetti(false);
@@ -147,6 +147,24 @@ const Game = () => {
       <div className="game-container">
         {!startGame ? (
           <div className="game-content">
+            <div className="input">
+              <span>Min:</span>
+              <input
+                id="min"
+                type="text"
+                value={min}
+                title="add number"
+                onChange={(e) => setMin(e.target.value)}
+              />
+              <span>Max:</span>
+              <input
+                id="max"
+                type="text"
+                value={max}
+                title="add number"
+                onChange={(e) => setMax(e.target.value)}
+              />
+            </div>
             <div className="type">
               {symbols.map((symbol) => (
                 <button

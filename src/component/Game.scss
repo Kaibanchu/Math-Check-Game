@@ -12,6 +12,25 @@
     flex-direction: column;
   
     background-color: gray;
+    >.input {
+      span {
+        font-size: 1.2em;
+
+      };
+      input[type="text"] {
+        padding:10px;
+        margin-bottom: 5px;
+        justify-content: center;
+        align-items: center;
+        height: 20px;
+        width: 70px;
+        display: inline-block;
+        margin: 5px;
+        
+        
+
+      }
+    }
     > .type {
       --font-size: 2em;
       min-height: var(--font-size);
