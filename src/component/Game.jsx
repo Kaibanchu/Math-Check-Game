@@ -15,15 +15,19 @@ const Game = () => {
   const [types, setTypes] = useState("+");
   const [wrong, setWrong] = useState(0);
   const [score, setScore] = useState(0);
-  const [count, setCount] = useState(60);
+  const [count, setCount] = useState(0);
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const [submit, setSubmit] = useState(false);
   const [confetti, setConfetti] = useState(false);
 
+
   // const audioRef =useRef();
+
   const mins = min;
   const maxs = max;
+
+  const result = eval(question);
 
   const randomNumber = (a, b) => {
     return Math.floor(Math.random() * (b - a + 1) + a);
@@ -44,6 +48,7 @@ const Game = () => {
   };
   const startGameHandler = () => {
     if (!startGame) {
+      
       new Audio(soundReady).play();
       setTimeout(() => {
         setStartGame(true);
@@ -53,26 +58,35 @@ const Game = () => {
   };
   const handleSubmit = () => {
     if (count > 0) {
-      const result = eval(question);
       //console.log(parseInt(result), parseInt(answer));
       if (parseInt(result) === parseInt(answer)) {
+        new Audio("src/component/soundCorrect.mp3").play();
+        setCount(15); // gia lập giá trị nhập vao la 15
         setScore(score + 1);
+        generateQuestion();
+        setAnswer("");
+        setSubmit(true);
       } else {
-        setWrong(wrong + 1);
+        new Audio("src/component/soundError.mp3").play();
+        setTimeout(() => {
+          setWrong(wrong + 1);
+        }, 2000);
+        setAnswer("");
+        setQuestion("");
       }
-      generateQuestion();
-      setAnswer("");
-      setSubmit(true);
     }
   };
   const handleReset = () => {
     setStartGame(false);
     setWrong(0);
     setScore(0);
-    setCount(60);
+    setCount(0);
     setQuestion("");
     setAnswer("");
     setConfetti(false);
+    setMin("");
+    setMax("");
+    
   };
 
   const n = (digit) => {
@@ -105,35 +119,30 @@ const Game = () => {
     setStartGame(false);
     setWrong(0);
     setScore(0);
-    setCount(60);
+    setCount("");
     setQuestion("");
     setAnswer("");
     setConfetti(false);
     setBestScore([]);
   };
+  useEffect(() => {
+    startGame &&
+      setInterval(()=> setCount (prevState => prevState -1), 1000);
+      return () => clearInterval(setInterval(()=> setCount (prevState => prevState -1), 1000));
+  }, [startGame]);
 
   useEffect(() => {
-    let interval = null;
     if (startGame) {
-      interval =
-        count > 0 &&
-        setInterval(() => {
-          setCount((preState) => preState - 1);
-        }, 1000);
-      if (count === 15) {
-        new Audio("src/component/soundHurry .mp3").play();
-      }
       if (count === 0) setConfetti(true);
       if (count === 0) {
         new Audio("src/component/soundCongratulation.mp3").play();
       }
     }
-    //setConfetti(true);
-    return () => {
-      if (interval) clearInterval(interval);
-    };
-  }, [count, startGame]);
 
+    
+  }, [startGame, count]);
+  //console.log (startGame);
+  // console.log(count);
   return (
     <>
       {confetti && (
@@ -147,6 +156,18 @@ const Game = () => {
       <div className="game-container">
         {!startGame ? (
           <div className="game-content">
+            <div className="timeQuestion">
+              <span>Time for each question (s):</span>
+              <input
+                id="timeQuestion"
+                type="text"
+                value={count}
+                title="5"
+                onChange={(e) => {
+                  setCount(e.target.value);
+                }}
+              />
+            </div>
             <div className="input">
               <span>Min:</span>
               <input
@@ -187,7 +208,7 @@ const Game = () => {
               Start
             </div>
           </div>
-        ) : count > 0 ? (
+        ) : count > 0 && wrong === 0 ? (
           <div className="calculator">
             <div className="wrong">
               Wrong: <strong>{wrong}</strong>

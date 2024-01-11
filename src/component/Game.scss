@@ -1,233 +1,237 @@
 * {
-    box-sizing: border-box;
-    // outline: 1px solid black
+  box-sizing: border-box;
+  // outline: 1px solid black
+}
+
+.game-content {
+  height: 30em;
+  width: 20em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  background-color: gray;
+  > .timeQuestion {
+    span {
+      font-size: 1.2em;
+    }
+    input[type="text"] {
+      padding: 3px;
+      margin-bottom: 5px;
+      justify-content: center;
+      align-items: center;
+      height: 20px;
+      width: 40px;
+      display: inline-block;
+      margin: 5px;
+    }
   }
-  
-  .game-content {
-    height: 30em;
-    width: 20em;
+  > .input {
+    span {
+      font-size: 1.2em;
+    }
+    input[type="text"] {
+      padding: 3px;
+      margin-bottom: 5px;
+      justify-content: center;
+      align-items: center;
+      height: 20px;
+      width: 70px;
+      display: inline-block;
+      margin: 5px;
+    }
+  }
+  > .type {
+    --font-size: 2em;
+    min-height: var(--font-size);
+    min-width: var(--font-size);
+    display: flex;
+    justify-content: center;
+
+    > button {
+      height: 2em;
+      width: 2em;
+      font-size: var(--font-size);
+      border-color: rgb(220, 218, 217);
+      cursor: pointer;
+      align-items: center;
+    }
+    > button:hover {
+      opacity: 0.75;
+    }
+  }
+
+  > .game-start {
+    display: flex;
+    width: 80%;
+    justify-content: center;
+    font-size: 30px;
+    padding: 5px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    margin-top: 10px;
+    background-color: rgb(233, 159, 12);
+  }
+  > .game-start:hover {
+    color: white;
+  }
+}
+.calculator {
+  display: grid;
+  grid-template-areas:
+    "wrong  score  count"
+    "game   game   game"
+    ".      .      ."
+    ".      .      ."
+    ".      .      ."
+    "reset  n0  submit";
+
+  grid-gap: 1px;
+  background-color: gray;
+  padding: 5px;
+  height: 30em;
+  width: 20em;
+  // outline: 1px solid black;
+
+  // justify-content: space-between;
+
+  > .wrong {
+    grid-area: wrong;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 1.5em;
+    padding: 3px;
+  }
+  > .score {
+    grid-area: score;
+    display: flex;
+    justify-content: center;
+    font-size: 1.5em;
+    padding: 3px;
+    align-items: center;
+  }
+  > .count {
+    grid-area: count;
+    display: flex;
+    justify-content: flex-end;
+    font-size: 1.5em;
+    padding: 3px;
+    align-items: center;
+  }
+  > .game {
+    grid-area: game;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-  
-    background-color: gray;
-    >.input {
-      span {
-        font-size: 1.2em;
+    background-color: rgb(236, 178, 70);
+    margin-bottom: 10px;
+    font-size: 1.5em;
+    border-radius: 30px;
+  }
+  > .reset {
+    grid-area: reset;
+  }
 
-      };
-      input[type="text"] {
-        padding:10px;
-        margin-bottom: 5px;
-        justify-content: center;
-        align-items: center;
-        height: 20px;
-        width: 70px;
-        display: inline-block;
-        margin: 5px;
-        
-        
+  > .submit {
+    grid-area: submit;
+  }
 
-      }
-    }
-    > .type {
-      --font-size: 2em;
-      min-height: var(--font-size);
-      min-width: var(--font-size);
-      display: flex;
-      justify-content: center;
-  
-      > button {
-        height: 2em;
-        width: 2em;
-        font-size: var(--font-size);
-        border-color: rgb(220, 218, 217);
-        cursor: pointer;
-        align-items: center;
-      }
-      > button:hover {
-        opacity: 0.75;
-      }
-    }
-  
-    > .game-start {
-      display: flex;
-      width: 80%;
-      justify-content: center;
-      font-size: 30px;
-      padding: 5px;
+  > div {
+    --font-size: 2em;
+    min-height: var(--font-size);
+    min-width: var(--font-size);
+    font-size: var(--font-size);
+    color: black;
+
+    > button {
+      height: 3.5em;
+      width: 3.5em;
+      font-size: calc(var(--font-size) * 0.35);
+      background-color: inherit;
+      color: black;
+      outline: none;
+      border-radius: 50%;
+      background-color: lightgray;
       cursor: pointer;
       border: 1px solid transparent;
-      margin-top: 10px;
-      background-color: rgb(233, 159, 12);
     }
-    > .game-start:hover {
-      color: white;
-    }
-  }
-  .calculator {
-    display: grid;
-    grid-template-areas:
-      "wrong  score  count"
-      "game   game   game"
-      ".      .      ."
-      ".      .      ."
-      ".      .      ."
-      "reset  n0  submit";
-  
-    grid-gap: 1px;
-    background-color: gray;
-    padding: 5px;
-    height: 30em;
-    width: 20em;
-    // outline: 1px solid black;
-  
-   // justify-content: space-between;
-  
-    > .wrong {
-      grid-area: wrong;
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      font-size: 1.5em;
-      padding: 3px;
-    }
-    > .score {
-      grid-area: score;
-      display: flex;
-      justify-content: center;
-      font-size: 1.5em;
-      padding: 3px;
-      align-items: center;
-    }
-    > .count {
-      grid-area: count;
-      display: flex;
-      justify-content: flex-end;
-      font-size: 1.5em;
-      padding: 3px;
-      align-items: center;
-    }
-    > .game {
-      grid-area: game;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: rgb(236, 178, 70);
-      margin-bottom: 10px;
-      font-size: 1.5em;
-      border-radius: 30px;
-    }
-    > .reset {
-      grid-area: reset;
-    }
-  
-    > .submit {
-      grid-area: submit;
-    }
-  
-    > div {
-      --font-size: 2em;
-      min-height: var(--font-size);
-      min-width: var(--font-size);
-      font-size: var(--font-size);
-      color: black;
-  
-      > button {
-        height: 3.5em;
-        width: 3.5em;
-        font-size: calc(var(--font-size) * 0.35);
-        background-color: inherit;
-        color: black;
-        outline: none;
-        border-radius: 50%;
-        background-color: lightgray;
-        cursor: pointer;
-        border: 1px solid transparent;
-      }
-      > button:hover {
-        color: rgb(237, 159, 14);
-        opacity: 0.75;
-      }
+    > button:hover {
+      color: rgb(237, 159, 14);
+      opacity: 0.75;
     }
   }
+}
 .result {
-    height: 30em;
-    width: 20em;
-    background-color: gray;
+  height: 30em;
+  width: 20em;
+  background-color: gray;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  > .credit1 {
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    >.credit1{
-        display: flex;
-        justify-content: center;      
-        //background-color: red;
-        width: 80%;
-        
-       
-    }
-    >.credit2{
-        display: flex;
-        //background-color: pink;
-        width: 80%;
-        justify-content: center; 
-        
-      >.score1 {
-        padding-left: 10%;
-        
-      }
-            }
-    >.credit3{
-        display: flex;
-        //background-color: pink;
-        width: 80%;
-        justify-content: center; 
-        margin: 10px;
-      >.score2 {
-        padding-left: 10%;
-        
-      }
-            }
-     
-     >.reset {
-        margin: 30px;
-     > button {
-        height: 3.5em;
-        width: 3.5em; 
-        font-size: 1em;   
-        background-color: inherit;
-        color: black;
-        border-radius: 50%;
-        background-color: lightgray;
-        cursor: pointer;
-        border: 1px solid transparent;
-      }
-      > button:hover {
-        color: rgb(237, 159, 14);
-        opacity: 0.75;
-      }
-    } 
-    >.clearStore { 
-        margin: 10px;
-     > button {
-        height: 3.5em;
-        width: 3.5em; 
-        font-size: 1em;   
-        background-color: inherit;
-        color: black;
-        border-radius: 50%;
-        background-color: lightgray;
-        cursor: pointer;
-        border: 1px solid transparent;
-      }
-      > button:hover {
-        color: rgb(237, 159, 14);
-        opacity: 0.75;
-      }
+    //background-color: red;
+    width: 80%;
+  }
+  > .credit2 {
+    display: flex;
+    //background-color: pink;
+    width: 80%;
+    justify-content: center;
 
-    } 
- 
-   
-}  
+    > .score1 {
+      padding-left: 10%;
+    }
+  }
+  > .credit3 {
+    display: flex;
+    //background-color: pink;
+    width: 80%;
+    justify-content: center;
+    margin: 10px;
+    > .score2 {
+      padding-left: 10%;
+    }
+  }
+
+  > .reset {
+    margin: 30px;
+    > button {
+      height: 3.5em;
+      width: 3.5em;
+      font-size: 1em;
+      background-color: inherit;
+      color: black;
+      border-radius: 50%;
+      background-color: lightgray;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+    > button:hover {
+      color: rgb(237, 159, 14);
+      opacity: 0.75;
+    }
+  }
+  > .clearStore {
+    margin: 10px;
+    > button {
+      height: 3.5em;
+      width: 3.5em;
+      font-size: 1em;
+      background-color: inherit;
+      color: black;
+      border-radius: 50%;
+      background-color: lightgray;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+    > button:hover {
+      color: rgb(237, 159, 14);
+      opacity: 0.75;
+    }
+  }
+}
