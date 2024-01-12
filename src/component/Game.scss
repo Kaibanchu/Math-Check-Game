@@ -80,12 +80,12 @@
 .calculator {
   display: grid;
   grid-template-areas:
-    "wrong  score  count"
+    "reset  score  count"
     "game   game   game"
     ".      .      ."
     ".      .      ."
     ".      .      ."
-    "reset  n0  submit";
+    "clear  n0  submit";
 
   grid-gap: 1px;
   background-color: gray;
@@ -96,7 +96,7 @@
 
   // justify-content: space-between;
 
-  > .wrong {
+  > .wrong{
     grid-area: wrong;
     display: flex;
     justify-content: flex-start;
@@ -111,6 +111,7 @@
     font-size: 1.5em;
     padding: 3px;
     align-items: center;
+    
   }
   > .count {
     grid-area: count;

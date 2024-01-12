@@ -15,24 +15,27 @@ const Game = () => {
   const [types, setTypes] = useState("+");
   const [wrong, setWrong] = useState(0);
   const [score, setScore] = useState(0);
-  const [count, setCount] = useState(0);
+  const [timeInput, setTimeInput] = useState("");
+  const [count, setCount] = useState(timeInput);
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const [submit, setSubmit] = useState(false);
   const [confetti, setConfetti] = useState(false);
-
+  const [showScore, setShowScore] = useState(false);
 
   // const audioRef =useRef();
 
-  const mins = min;
-  const maxs = max;
+  //const mins = min;
+  //const maxs = max;
 
-  const result = eval(question);
+  // const result = eval(question);
 
   const randomNumber = (a, b) => {
     return Math.floor(Math.random() * (b - a + 1) + a);
   };
   const generateQuestion = () => {
+    const mins = min;
+    const maxs = max;
     if (types === "+") {
       const num1 = randomNumber(Number(mins), Number(maxs));
       const num2 = randomNumber(Number(mins), Number(maxs));
@@ -48,7 +51,7 @@ const Game = () => {
   };
   const startGameHandler = () => {
     if (!startGame) {
-      
+      setCount(timeInput);
       new Audio(soundReady).play();
       setTimeout(() => {
         setStartGame(true);
@@ -58,19 +61,25 @@ const Game = () => {
   };
   const handleSubmit = () => {
     if (count > 0) {
+      const result = eval(question);
       //console.log(parseInt(result), parseInt(answer));
       if (parseInt(result) === parseInt(answer)) {
         new Audio("src/component/soundCorrect.mp3").play();
-        setCount(15); // gia lập giá trị nhập vao la 15
+        setCount(timeInput); // gia lập giá trị nhập vao la 15
         setScore(score + 1);
-        generateQuestion();
-        setAnswer("");
-        setSubmit(true);
+        setShowScore(true);
+        setTimeout(() => {
+          generateQuestion();
+          setAnswer("");
+          setSubmit(true);
+          setShowScore(false);
+        }, 1000);
       } else {
         new Audio("src/component/soundError.mp3").play();
         setTimeout(() => {
           setWrong(wrong + 1);
-        }, 2000);
+          setCount(0);
+        }, 3000);
         setAnswer("");
         setQuestion("");
       }
@@ -86,7 +95,7 @@ const Game = () => {
     setConfetti(false);
     setMin("");
     setMax("");
-    
+    setTimeInput("");
   };
 
   const n = (digit) => {
@@ -124,12 +133,21 @@ const Game = () => {
     setAnswer("");
     setConfetti(false);
     setBestScore([]);
+    setTimeInput("");
   };
   useEffect(() => {
-    startGame &&
-      setInterval(()=> setCount (prevState => prevState -1), 1000);
-      return () => clearInterval(setInterval(()=> setCount (prevState => prevState -1), 1000));
-  }, [startGame]);
+    let interval = null;
+    if (startGame) {
+      interval =
+        count > 0 &&
+        setInterval(() => {
+          setCount((preState) => preState - 1);
+        }, 1000);
+      return () => {
+        if (interval) clearInterval(interval);
+      };
+    }
+  }, [count, startGame]);
 
   useEffect(() => {
     if (startGame) {
@@ -138,11 +156,15 @@ const Game = () => {
         new Audio("src/component/soundCongratulation.mp3").play();
       }
     }
-
-    
   }, [startGame, count]);
+  const handleClear = () => {
+    setAnswer("");
+  };
   //console.log (startGame);
   // console.log(count);
+  // console.log("count", count);
+  //console.log("timeInput", timeInput);
+  console.log(showScore);
   return (
     <>
       {confetti && (
@@ -161,10 +183,10 @@ const Game = () => {
               <input
                 id="timeQuestion"
                 type="text"
-                value={count}
+                value={timeInput}
                 title="5"
                 onChange={(e) => {
-                  setCount(e.target.value);
+                  setTimeInput(e.target.value);
                 }}
               />
             </div>
@@ -210,10 +232,10 @@ const Game = () => {
           </div>
         ) : count > 0 && wrong === 0 ? (
           <div className="calculator">
-            <div className="wrong">
-              Wrong: <strong>{wrong}</strong>
+            <div className="reset" onClick={handleReset}>
+              <button>Reset</button>
             </div>
-            <div className="score">
+            <div className="score" style={showScore ? {} : { color: "gray" }}>
               Score: <strong>{score}</strong>
             </div>
             <div className="count">
@@ -253,8 +275,8 @@ const Game = () => {
               <button>0</button>
             </div>
 
-            <div className="reset" onClick={handleReset}>
-              <button>Reset</button>
+            <div className="clear" onClick={handleClear}>
+              <button>X</button>
             </div>
             <div className="submit" onClick={handleSubmit}>
               <button>Submit</button>
@@ -272,7 +294,7 @@ const Game = () => {
               Best Score: <div className="score2">{maxScore}</div>{" "}
             </div>
             <div className="reset" onClick={handleReset}>
-              <button>Reset</button>
+              <button on>Reset</button>
             </div>
             <div className="clearStore" onClick={handleClearStore}>
               <button>Clear Store</button>
