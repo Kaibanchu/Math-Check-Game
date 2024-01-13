@@ -48,6 +48,22 @@ const Game = () => {
         ? setQuestion(`${num1} ${types} ${num2}`)
         : setQuestion(`${num2} ${types} ${num1}`);
     }
+    if (types === "*") {
+      const num1 = randomNumber(Number(mins), Number(maxs));
+      const num2 = randomNumber(Number(mins), Number(maxs));
+      setQuestion(`${num1} ${types} ${num2}`);
+    }
+    if (types === "/") {
+      const num1 = randomNumber(Number(mins), Number(maxs));
+      const num2 = randomNumber(Number(mins), Number(maxs));
+      if (num1 % num2 === 0 && num2 !== 0)
+        setQuestion(`${num1} ${types} ${num2}`);
+      if (num2 % num1 === 0 && num1 !== 0)
+      setQuestion(`${num2} ${types} ${num1}`);
+      setAnswer("");
+      setShowScore(false);
+      return generateQuestion(); // gọi lại trong lần đầu tiên nếu không chọn số phù hợp. 
+    }
   };
   const startGameHandler = () => {
     if (!startGame) {
@@ -133,6 +149,8 @@ const Game = () => {
     setAnswer("");
     setConfetti(false);
     setBestScore([]);
+    setMin("");
+    setMax("");
     setTimeInput("");
   };
   useEffect(() => {
@@ -232,54 +250,59 @@ const Game = () => {
           </div>
         ) : count > 0 && wrong === 0 ? (
           <div className="calculator">
-            <div className="reset" onClick={handleReset}>
-              <button>Reset</button>
+            <div className="header">
+              <div className="reset" onClick={handleReset}>
+                <button>Reset</button>
+              </div>
+              <div className="score" style={showScore ? {} : { color: "gray" }}>
+                Score: <strong>{score}</strong>
+              </div>
+              <div className="count">
+                Time: <strong>{count}</strong>
+              </div>
             </div>
-            <div className="score" style={showScore ? {} : { color: "gray" }}>
-              Score: <strong>{score}</strong>
-            </div>
-            <div className="count">
-              Time: <strong>{count}</strong>
-            </div>
+
             <div className="game">
               {question} = {answer}
             </div>
-            <div className="n1" onClick={() => n("1")}>
-              <button>1</button>
-            </div>
-            <div className="n2" onClick={() => n("2")}>
-              <button>2</button>
-            </div>
-            <div className="n3" onClick={() => n("3")}>
-              <button>3</button>
-            </div>
-            <div className="n4" onClick={() => n("4")}>
-              <button>4</button>
-            </div>
-            <div className="n5" onClick={() => n("5")}>
-              <button>5</button>
-            </div>
-            <div className="n6" onClick={() => n("6")}>
-              <button>6</button>
-            </div>
-            <div className="n7" onClick={() => n("7")}>
-              <button>7</button>
-            </div>
-            <div className="n8" onClick={() => n("8")}>
-              <button>8</button>
-            </div>
-            <div className="n9" onClick={() => n("9")}>
-              <button>9</button>
-            </div>
-            <div className="n0" onClick={() => n("0")}>
-              <button>0</button>
-            </div>
+            <div className="number">
+              <div className="n1" onClick={() => n("1")}>
+                <button>1</button>
+              </div>
+              <div className="n2" onClick={() => n("2")}>
+                <button>2</button>
+              </div>
+              <div className="n3" onClick={() => n("3")}>
+                <button>3</button>
+              </div>
+              <div className="n4" onClick={() => n("4")}>
+                <button>4</button>
+              </div>
+              <div className="n5" onClick={() => n("5")}>
+                <button>5</button>
+              </div>
+              <div className="n6" onClick={() => n("6")}>
+                <button>6</button>
+              </div>
+              <div className="n7" onClick={() => n("7")}>
+                <button>7</button>
+              </div>
+              <div className="n8" onClick={() => n("8")}>
+                <button>8</button>
+              </div>
+              <div className="n9" onClick={() => n("9")}>
+                <button>9</button>
+              </div>
+              <div className="n0" onClick={() => n("0")}>
+                <button>0</button>
+              </div>
 
-            <div className="clear" onClick={handleClear}>
-              <button>X</button>
-            </div>
-            <div className="submit" onClick={handleSubmit}>
-              <button>Submit</button>
+              <div className="clear" onClick={handleClear}>
+                <button>X</button>
+              </div>
+              <div className="submit" onClick={handleSubmit}>
+                <button>Sub</button>
+              </div>
             </div>
           </div>
         ) : (

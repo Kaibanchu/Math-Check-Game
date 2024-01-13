@@ -78,91 +78,128 @@
   }
 }
 .calculator {
-  display: grid;
-  grid-template-areas:
-    "reset  score  count"
-    "game   game   game"
-    ".      .      ."
-    ".      .      ."
-    ".      .      ."
-    "clear  n0  submit";
-
-  grid-gap: 1px;
   background-color: gray;
   padding: 5px;
   height: 30em;
   width: 20em;
-  // outline: 1px solid black;
-
-  // justify-content: space-between;
-
-  > .wrong{
-    grid-area: wrong;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    font-size: 1.5em;
-    padding: 3px;
-  }
-  > .score {
-    grid-area: score;
-    display: flex;
-    justify-content: center;
-    font-size: 1.5em;
-    padding: 3px;
-    align-items: center;
+  //outline: 1px solid black;
+  > .header {
+   display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    //background-color: yellow;
+    height: 3em;
+      
+    > .reset {
     
-  }
-  > .count {
-    grid-area: count;
-    display: flex;
-    justify-content: flex-end;
-    font-size: 1.5em;
-    padding: 3px;
-    align-items: center;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.4em;
+      min-height: var(--font-size);
+      min-width: var(--font-size);
+     
+      color: black;
+      >button {
+        height: 3.5em;
+        width: 3.5em;
+        
+        background-color: inherit;
+        color: black;
+        outline: none;
+        border-radius: 50%;
+        background-color: lightgray;
+        cursor: pointer;
+        border: 1px solid transparent;
+      }
+      > button:hover {
+        color: rgb(237, 159, 14);
+        opacity: 0.75;
+      }
+ 
+      
+     
+    }
+
+    > .score {
+       
+      justify-content: center;
+      font-size: 1.3em;
+      align-items: flex-start;
+    //  background-color: pink ;
+      
+    }
+    > .count {
+      
+      font-size: 1.3em;     
+     // background-color: green;
+      
+    }
   }
   > .game {
-    grid-area: game;
+ 
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: rgb(236, 178, 70);
-    margin-bottom: 10px;
-    font-size: 1.5em;
+    height: 1.5em;
+    font-size: 2em;
     border-radius: 30px;
-  }
-  > .reset {
-    grid-area: reset;
+    margin: 10px;
   }
 
-  > .submit {
-    grid-area: submit;
-  }
+  > .number {
+    display: grid;
+    grid-template-areas:
+      "n1  n2  n3"
+      "n4  n5  n6"
+      "n7  n8  n9"
+      "clear  n0  submit";
+    background-color: orange;
+    // width: 8em;
+    grid-gap: 2px;
+    align-items: center;
+    justify-content: space-between;
+    background-color: gray;
+    
+    height: 22em;
+    > .submit {
+      align-items: center;
+      justify-content: center;
+      grid-area: submit;
 
-  > div {
-    --font-size: 2em;
-    min-height: var(--font-size);
-    min-width: var(--font-size);
-    font-size: var(--font-size);
-    color: black;
-
-    > button {
-      height: 3.5em;
-      width: 3.5em;
-      font-size: calc(var(--font-size) * 0.35);
-      background-color: inherit;
+      
+      
+    }
+    > .clear {
+      grid-area: clear;
+    }
+    > div {
+      --font-size: 2em;
+      min-height: var(--font-size);
+      min-width: var(--font-size);
+      font-size: var(--font-size);
       color: black;
-      outline: none;
-      border-radius: 50%;
-      background-color: lightgray;
-      cursor: pointer;
-      border: 1px solid transparent;
-    }
-    > button:hover {
-      color: rgb(237, 159, 14);
-      opacity: 0.75;
+      
+
+      > button {
+        height: 2.5em;
+        width: 2.5em;
+        font-size: calc(var(--font-size) * 0.45);
+        background-color: inherit;
+        color: black;
+        outline: none;
+        border-radius: 50%;
+        background-color: lightgray;
+        cursor: pointer;
+        border: 1px solid transparent;
+      }
+      > button:hover {
+        color: rgb(237, 159, 14);
+        opacity: 0.75;
+      }
     }
   }
+  
 }
 .result {
   height: 30em;
