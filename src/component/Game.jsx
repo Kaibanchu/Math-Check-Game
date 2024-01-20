@@ -12,7 +12,8 @@ const Game = () => {
   const [max, setMax] = useState("");
   const [bestScore, setBestScore] = useState([]);
   const [startGame, setStartGame] = useState(false);
-  const [types, setTypes] = useState("+");
+  const [types, setTypes] = useState("");
+  const [groupTypes, setGroupTypes] = useState([]);
   const [wrong, setWrong] = useState(0);
   const [score, setScore] = useState(0);
   const [timeInput, setTimeInput] = useState("");
@@ -21,50 +22,91 @@ const Game = () => {
   const [answer, setAnswer] = useState("");
   const [submit, setSubmit] = useState(false);
   const [confetti, setConfetti] = useState(false);
-  const [showScore, setShowScore] = useState(false);
+  const [options, setOptions] = useState([]);
+  const [checkAnswer, setCheckAnswer] = useState("");
+  const [add, setAdd] = useState(false);
 
   // const audioRef =useRef();
-
   //const mins = min;
   //const maxs = max;
-
   // const result = eval(question);
+
+  const handleSetTypes = (symbol) => {
+    const indexTypes = groupTypes.findIndex((t) => t === symbol);
+    let prevTypes = [...groupTypes];
+    if (indexTypes === -1) {
+      prevTypes = [...prevTypes, symbol];
+    } else {
+      prevTypes.splice(indexTypes, 1);
+    }
+    setGroupTypes([...prevTypes]);
+    // setGroupTypes((prev) => prev.includes(symbol)?[...prev] = prev.slice(prev.indexOf(symbol),prev.indexOf(symbol)+ 1): [...prev, symbol]);
+  };
 
   const randomNumber = (a, b) => {
     return Math.floor(Math.random() * (b - a + 1) + a);
   };
+
   const generateQuestion = () => {
     const mins = min;
     const maxs = max;
+    const typesIndex = Math.floor(Math.random() * groupTypes.length);
+    const types = groupTypes[typesIndex];
+    const num1 = randomNumber(Number(mins), Number(maxs));
+    const num2 = randomNumber(Number(mins), Number(maxs));
+
     if (types === "+") {
-      const num1 = randomNumber(Number(mins), Number(maxs));
-      const num2 = randomNumber(Number(mins), Number(maxs));
       setQuestion(`${num1} ${types} ${num2}`);
+      setAnswer(num1 + num2);
     }
     if (types === "-") {
-      const num1 = randomNumber(Number(mins), Number(maxs));
-      const num2 = randomNumber(Number(mins), Number(maxs));
       num1 > num2
-        ? setQuestion(`${num1} ${types} ${num2}`)
-        : setQuestion(`${num2} ${types} ${num1}`);
+        ? (setQuestion(`${num1} ${types} ${num2}`), setAnswer(num1 - num2))
+        : (setQuestion(`${num2} ${types} ${num1}`), setAnswer(num2 - num1));
     }
     if (types === "*") {
-      const num1 = randomNumber(Number(mins), Number(maxs));
-      const num2 = randomNumber(Number(mins), Number(maxs));
       setQuestion(`${num1} ${types} ${num2}`);
+      setAnswer(num1 * num2);
     }
+
     if (types === "/") {
       const num1 = randomNumber(Number(mins), Number(maxs));
       const num2 = randomNumber(Number(mins), Number(maxs));
-      if (num1 % num2 === 0 && num2 !== 0)
+      if (num1 % num2 === 0 && num2 !== 0) {
         setQuestion(`${num1} ${types} ${num2}`);
-      if (num2 % num1 === 0 && num1 !== 0)
-      setQuestion(`${num2} ${types} ${num1}`);
-      setAnswer("");
-      setShowScore(false);
-      return generateQuestion(); // gọi lại trong lần đầu tiên nếu không chọn số phù hợp. 
+        setAnswer(num1 / num2);
+      }
+      if (num2 % num1 === 0 && num1 !== 0) {
+        setQuestion(`${num2} ${types} ${num1}`);
+        setAnswer(num2 / num1);
+      }
+
+      return generateQuestion(); // gọi lại trong lần đầu tiên nếu không chọn số phù hợp.
     }
+    setAdd(false);
   };
+  useEffect(() => {
+    const answerCheck = Array.from({ length: 4 });
+    if (startGame) {
+      // const answerCheck= Array.from ({length: 4})
+      const answerIndex = Math.floor(Math.random() * 4);
+      answerCheck[answerIndex] = answer;
+      if (answerIndex !== 0) {
+        answerCheck[0] = answer - 3;
+      }
+      if (answerIndex !== 1) {
+        answerCheck[1] = answer + 3;
+      }
+      if (answerIndex !== 2) {
+        answerCheck[2] = answer + 2;
+      }
+      if (answerIndex !== 3) {
+        answerCheck[3] = answer - 2;
+      }
+    }
+    setOptions(answerCheck);
+  }, [startGame, add]);
+
   const startGameHandler = () => {
     if (!startGame) {
       setCount(timeInput);
@@ -77,18 +119,17 @@ const Game = () => {
   };
   const handleSubmit = () => {
     if (count > 0) {
-      const result = eval(question);
       //console.log(parseInt(result), parseInt(answer));
-      if (parseInt(result) === parseInt(answer)) {
+      if (checkAnswer == answer) {
         new Audio("src/component/soundCorrect.mp3").play();
         setCount(timeInput); // gia lập giá trị nhập vao la 15
         setScore(score + 1);
-        setShowScore(true);
+        setAdd(true);
+        setOptions([]);
+        setTypes("");
         setTimeout(() => {
           generateQuestion();
-          setAnswer("");
           setSubmit(true);
-          setShowScore(false);
         }, 1000);
       } else {
         new Audio("src/component/soundError.mp3").play();
@@ -99,6 +140,12 @@ const Game = () => {
         setAnswer("");
         setQuestion("");
       }
+    }
+  };
+  const handleCheckAnwer = (number) => {
+    setCheckAnswer(number);
+    if (submit) {
+      setSubmit(false);
     }
   };
   const handleReset = () => {
@@ -112,16 +159,14 @@ const Game = () => {
     setMin("");
     setMax("");
     setTimeInput("");
+    setOptions([]);
+    setCheckAnswer("");
+    setGroupTypes([]);
+    setTypes("");
+    setSubmit(false);
+    setAdd(false);
   };
 
-  const n = (digit) => {
-    let wcAnswer = answer;
-    if (submit) {
-      wcAnswer = "";
-      setSubmit(false);
-    }
-    setAnswer(wcAnswer + digit);
-  };
   useEffect(() => {
     if (count > 0 && startGame === true) {
       setBestScore((prev) => {
@@ -152,6 +197,10 @@ const Game = () => {
     setMin("");
     setMax("");
     setTimeInput("");
+    setOptions([]);
+    setCheckAnswer("");
+    setGroupTypes([]);
+    setTypes("");
   };
   useEffect(() => {
     let interval = null;
@@ -175,14 +224,18 @@ const Game = () => {
       }
     }
   }, [startGame, count]);
-  const handleClear = () => {
-    setAnswer("");
-  };
+
   //console.log (startGame);
   // console.log(count);
   // console.log("count", count);
   //console.log("timeInput", timeInput);
-  console.log(showScore);
+  // console.log("a", a);
+  //console.log("submit", submit);
+  // console.log("options", options);
+  //console.log("checkAnswer", checkAnswer);
+  //console.log("answer", answer);
+  // console.log("question", question);
+  // console.log("GroupTypes", groupTypes);
   return (
     <>
       {confetti && (
@@ -231,13 +284,11 @@ const Game = () => {
                 <button
                   key={symbol}
                   style={
-                    types === symbol
-                      ? {
-                          backgroundColor: "orange",
-                        }
+                    groupTypes.includes(symbol, 0)
+                      ? { backgroundColor: "orange" }
                       : {}
                   }
-                  onClick={() => setTypes(symbol)}
+                  onClick={() => handleSetTypes(symbol)}
                 >
                   {symbol}
                 </button>
@@ -254,7 +305,7 @@ const Game = () => {
               <div className="reset" onClick={handleReset}>
                 <button>Reset</button>
               </div>
-              <div className="score" style={showScore ? {} : { color: "gray" }}>
+              <div className="score">
                 Score: <strong>{score}</strong>
               </div>
               <div className="count">
@@ -262,47 +313,23 @@ const Game = () => {
               </div>
             </div>
 
-            <div className="game">
-              {question} = {answer}
-            </div>
+            <div className="game">{question} = ?</div>
             <div className="number">
-              <div className="n1" onClick={() => n("1")}>
-                <button>1</button>
-              </div>
-              <div className="n2" onClick={() => n("2")}>
-                <button>2</button>
-              </div>
-              <div className="n3" onClick={() => n("3")}>
-                <button>3</button>
-              </div>
-              <div className="n4" onClick={() => n("4")}>
-                <button>4</button>
-              </div>
-              <div className="n5" onClick={() => n("5")}>
-                <button>5</button>
-              </div>
-              <div className="n6" onClick={() => n("6")}>
-                <button>6</button>
-              </div>
-              <div className="n7" onClick={() => n("7")}>
-                <button>7</button>
-              </div>
-              <div className="n8" onClick={() => n("8")}>
-                <button>8</button>
-              </div>
-              <div className="n9" onClick={() => n("9")}>
-                <button>9</button>
-              </div>
-              <div className="n0" onClick={() => n("0")}>
-                <button>0</button>
-              </div>
+              {options.map((number) => (
+                <button
+                  key={number}
+                  onClick={() => {
+                    handleCheckAnwer(number), setTypes(number);
+                  }}
+                  style={types === number ? { backgroundColor: "orange" } : {}}
+                >
+                  {number}
+                </button>
+              ))}
+            </div>
 
-              <div className="clear" onClick={handleClear}>
-                <button>X</button>
-              </div>
-              <div className="submit" onClick={handleSubmit}>
-                <button>Sub</button>
-              </div>
+            <div className="submit" onClick={handleSubmit}>
+              Submit
             </div>
           </div>
         ) : (
