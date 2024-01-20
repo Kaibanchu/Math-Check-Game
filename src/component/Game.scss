@@ -179,8 +179,10 @@
     margin-top: 10px;
     background-color: rgb(233, 159, 12);
     align-items: center;
-    flex-direction: column;
-      
+    flex-direction: column;    
+    }
+    > .submit:hover {
+      color: white;
     }
       
   }

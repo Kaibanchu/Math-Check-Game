@@ -70,17 +70,11 @@ const Game = () => {
     }
 
     if (types === "/") {
-      const num1 = randomNumber(Number(mins), Number(maxs));
-      const num2 = randomNumber(Number(mins), Number(maxs));
-      if (num1 % num2 === 0 && num2 !== 0) {
+      if (num1 > num2 && num1 % num2 === 0 && num2 !== 0) {
         setQuestion(`${num1} ${types} ${num2}`);
         setAnswer(num1 / num2);
+        setAdd(false);
       }
-      if (num2 % num1 === 0 && num1 !== 0) {
-        setQuestion(`${num2} ${types} ${num1}`);
-        setAnswer(num2 / num1);
-      }
-
       return generateQuestion(); // gọi lại trong lần đầu tiên nếu không chọn số phù hợp.
     }
     setAdd(false);
@@ -231,10 +225,11 @@ const Game = () => {
   //console.log("timeInput", timeInput);
   // console.log("a", a);
   //console.log("submit", submit);
-  // console.log("options", options);
+  //console.log("options", options);
   //console.log("checkAnswer", checkAnswer);
   //console.log("answer", answer);
-  // console.log("question", question);
+  //console.log("question", question);
+  // console.log("add", add);
   // console.log("GroupTypes", groupTypes);
   return (
     <>
