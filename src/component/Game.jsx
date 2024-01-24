@@ -5,18 +5,18 @@ import Confetti from "react-confetti";
 import soundReady from "./soundReady.mp3";
 //import soundHurry from "./soundHurry.mp3";
 //const newScore= [];
-const symbols = ["+", "-", "*", "/"];
+const symbols = ["+", "-", "x", "/"];
 //const numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 const Game = () => {
-  const [min, setMin] = useState("");
-  const [max, setMax] = useState("");
+  const [min, setMin] = useState("1");
+  const [max, setMax] = useState("6");
   const [bestScore, setBestScore] = useState([]);
   const [startGame, setStartGame] = useState(false);
   const [types, setTypes] = useState("");
   const [groupTypes, setGroupTypes] = useState([]);
   const [wrong, setWrong] = useState(0);
   const [score, setScore] = useState(0);
-  const [timeInput, setTimeInput] = useState("");
+  const [timeInput, setTimeInput] = useState("30");
   const [count, setCount] = useState(timeInput);
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
@@ -26,10 +26,6 @@ const Game = () => {
   const [checkAnswer, setCheckAnswer] = useState("");
   const [add, setAdd] = useState(false);
 
-  // const audioRef =useRef();
-  //const mins = min;
-  //const maxs = max;
-  // const result = eval(question);
 
   const handleSetTypes = (symbol) => {
     const indexTypes = groupTypes.findIndex((t) => t === symbol);
@@ -54,6 +50,7 @@ const Game = () => {
     const types = groupTypes[typesIndex];
     const num1 = randomNumber(Number(mins), Number(maxs));
     const num2 = randomNumber(Number(mins), Number(maxs));
+    
 
     if (types === "+") {
       setQuestion(`${num1} ${types} ${num2}`);
@@ -64,7 +61,7 @@ const Game = () => {
         ? (setQuestion(`${num1} ${types} ${num2}`), setAnswer(num1 - num2))
         : (setQuestion(`${num2} ${types} ${num1}`), setAnswer(num2 - num1));
     }
-    if (types === "*") {
+    if (types === "x") {
       setQuestion(`${num1} ${types} ${num2}`);
       setAnswer(num1 * num2);
     }
@@ -121,10 +118,11 @@ const Game = () => {
         setAdd(true);
         setOptions([]);
         setTypes("");
-        setTimeout(() => {
+       
+      setTimeout(() => {
           generateQuestion();
           setSubmit(true);
-        }, 1000);
+        }, 300); 
       } else {
         new Audio("src/component/soundError.mp3").play();
         setTimeout(() => {
@@ -150,9 +148,9 @@ const Game = () => {
     setQuestion("");
     setAnswer("");
     setConfetti(false);
-    setMin("");
-    setMax("");
-    setTimeInput("");
+    setMin("1");
+    setMax("6");
+    setTimeInput("30");
     setOptions([]);
     setCheckAnswer("");
     setGroupTypes([]);
@@ -188,9 +186,9 @@ const Game = () => {
     setAnswer("");
     setConfetti(false);
     setBestScore([]);
-    setMin("");
-    setMax("");
-    setTimeInput("");
+    setMin("1");
+    setMax("6");
+    setTimeInput("30");
     setOptions([]);
     setCheckAnswer("");
     setGroupTypes([]);
@@ -219,18 +217,7 @@ const Game = () => {
     }
   }, [startGame, count]);
 
-  //console.log (startGame);
-  // console.log(count);
-  // console.log("count", count);
-  //console.log("timeInput", timeInput);
-  // console.log("a", a);
-  //console.log("submit", submit);
-  //console.log("options", options);
-  //console.log("checkAnswer", checkAnswer);
-  //console.log("answer", answer);
-  //console.log("question", question);
-  // console.log("add", add);
-  // console.log("GroupTypes", groupTypes);
+
   return (
     <>
       {confetti && (
@@ -278,6 +265,7 @@ const Game = () => {
               {symbols.map((symbol) => (
                 <button
                   key={symbol}
+                 
                   style={
                     groupTypes.includes(symbol, 0)
                       ? { backgroundColor: "orange" }
@@ -298,13 +286,23 @@ const Game = () => {
           <div className="calculator">
             <div className="header">
               <div className="reset" onClick={handleReset}>
-                <button>Reset</button>
+              
+                <button>Reset
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                                    <path fillRule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z"/>
+                                    <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z"/>
+                                </svg>
+                </button>
               </div>
               <div className="score">
-                Score: <strong>{score}</strong>
+                <strong>{score}</strong>
               </div>
               <div className="count">
-                Time: <strong>{count}</strong>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-stopwatch" viewBox="1 -2.2 18 18">
+                    <path d="M8.5 5.6a.5.5 0 1 0-1 0v2.9h-3a.5.5 0 0 0 0 1H8a.5.5 0 0 0 .5-.5z"/>
+                    <path d="M6.5 1A.5.5 0 0 1 7 .5h2a.5.5 0 0 1 0 1v.57c1.36.196 2.594.78 3.584 1.64a.715.715 0 0 1 .012-.013l.354-.354-.354-.353a.5.5 0 0 1 .707-.708l1.414 1.415a.5.5 0 1 1-.707.707l-.353-.354-.354.354a.512.512 0 0 1-.013.012A7 7 0 1 1 7 2.071V1.5a.5.5 0 0 1-.5-.5M8 3a6 6 0 1 0 .001 12A6 6 0 0 0 8 3"/>
+                    </svg>
+               <strong>{count}</strong>
               </div>
             </div>
 
@@ -313,18 +311,25 @@ const Game = () => {
               {options.map((number) => (
                 <button
                   key={number}
+                  className={options.indexOf(number)}
                   onClick={() => {
                     handleCheckAnwer(number), setTypes(number);
                   }}
-                  style={types === number ? { backgroundColor: "orange" } : {}}
+                style={types === number ? { backgroundColor: " rgb(212, 77, 212)" } : {}}
                 >
-                  {number}
+                  {number} 
+                  
                 </button>
               ))}
             </div>
 
             <div className="submit" onClick={handleSubmit}>
               Submit
+
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                    <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+                                </svg>
             </div>
           </div>
         ) : (
@@ -339,10 +344,10 @@ const Game = () => {
               Best Score: <div className="score2">{maxScore}</div>{" "}
             </div>
             <div className="reset" onClick={handleReset}>
-              <button on>Reset</button>
+              <button on>Go Back!</button>
             </div>
             <div className="clearStore" onClick={handleClearStore}>
-              <button>Clear Store</button>
+              <button>Clear Score</button>
             </div>
           </div>
         )}

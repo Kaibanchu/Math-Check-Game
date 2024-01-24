@@ -1,33 +1,39 @@
 * {
   box-sizing: border-box;
-  // outline: 1px solid black
 }
 
 .game-content {
-  height: 30em;
-  width: 20em;
+  padding: 20px;
+  height: 38em;
+  width: 22em;
+  outline: solid rgb(214, 222, 214);
+  outline-width: 10px;
+  border-radius: 5%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 
-  background-color: gray;
+  background-color: #f5f5f5;
   > .timeQuestion {
+    margin-bottom: 10px;
     span {
       font-size: 1.2em;
     }
     input[type="text"] {
       padding: 3px;
-      margin-bottom: 5px;
       justify-content: center;
       align-items: center;
       height: 20px;
-      width: 40px;
+      width: 50px;
       display: inline-block;
       margin: 5px;
+      background-color: rgb(155, 157, 222);
     }
   }
   > .input {
+    margin-bottom: 10px;
+
     span {
       font-size: 1.2em;
     }
@@ -40,9 +46,11 @@
       width: 70px;
       display: inline-block;
       margin: 5px;
+      background-color: rgb(155, 157, 222);
     }
   }
   > .type {
+    margin-bottom: 10px;
     --font-size: 2em;
     min-height: var(--font-size);
     min-width: var(--font-size);
@@ -78,11 +86,14 @@
   }
 }
 .calculator {
-  background-color: gray;
-  padding: 5px;
-  height: 30em;
-  width: 20em;
-  //outline: 1px solid black;
+  background-color: #f5f5f5;
+  padding: 20px;
+  height: 38em;
+  width: 22em;
+  outline: solid rgb(214, 222, 214);
+  outline-width: 10px;
+  border-radius: 5%;
+
   > .header {
     display: flex;
     flex-direction: row;
@@ -103,10 +114,10 @@
         width: 3.5em;
 
         background-color: inherit;
-        color: black;
+        color: rgb(239, 234, 234);
         outline: none;
         border-radius: 50%;
-        background-color: lightgray;
+        background-color: rgb(155, 157, 222);
         cursor: pointer;
         border: 1px solid transparent;
       }
@@ -117,14 +128,18 @@
     }
 
     > .score {
+      display: flex;
       justify-content: center;
-      font-size: 1.3em;
-      align-items: flex-start;
-      //  background-color: pink ;
+      width: 2em;
+      font-size: 1.5em;
+      align-items: center;
+      color: rgb(167, 169, 228);
+      background-color: pink;
+      border-radius: 50%;
     }
     > .count {
       font-size: 1.3em;
-      // background-color: green;
+      color: rgb(212, 77, 212);
     }
   }
   > .game {
@@ -135,86 +150,99 @@
     height: 1.5em;
     font-size: 2em;
     border-radius: 30px;
-    margin: 10px;
+    margin: 20px;
   }
 
   > .number {
-    display: flex;
-    align-items:center;
-    flex-direction: row ;
-    font-size: 0.9em;
-    justify-content: space-between;
-    background-color: gray;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    display: grid;
+    grid-template-areas:
+      "0 1"
+      "2 3";
+    justify-content: center;
+    align-items: center;
+    grid-gap: 25px;
     height: 50%;
-   // background-color: aqua;
-    //font-size: 1.4em;
+    background-color: rgb(189, 239, 226);
+    font-size: 1.25em;
     min-height: var(--font-size);
     min-width: var(--font-size);
+
     > button {
-      height: 5em;
-      width: 5em;
-      background-color: inherit;
-      color: black;
-      outline: none;
-      border-radius: 50%;
-      background-color: lightgray;
+      height: 4em;
+      width: 4em;
+      border-radius: 10%;
       cursor: pointer;
       border: 1px solid transparent;
-      font-size: 1em;
+      font-size: 1.2em;
+      &0 {
+        padding: 20px;
+        background-color: pink;
+      }
     }
+
     > button:hover {
-      color: rgb(237, 159, 14);
       opacity: 0.75;
     }
-    
   }
   > .submit {
     display: flex;
-    width: auto;
     justify-content: center;
-    font-size: 30px;
-    padding: 5px;
+    font-size: 2.4em;
+    padding: 15px;
     cursor: pointer;
-    border: 1px solid transparent;
-    margin-top: 10px;
+    //border: 1px solid transparent;
+    margin-top: 30px;
     background-color: rgb(233, 159, 12);
     align-items: center;
-    flex-direction: column;    
-    }
-    > .submit:hover {
-      color: white;
-    }
-      
+    // margin-right: 20px;
+    border-radius: 50%;
   }
+  > .submit:hover {
+    color: white;
+  }
+}
+
 .result {
-  height: 30em;
-  width: 20em;
-  background-color: gray;
+  background-color: #f5f5f5;
+  padding: 20px;
+  height: 38em;
+  width: 22em;
+  outline: solid rgb(214, 222, 214);
+  outline-width: 10px;
+  border-radius: 5%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   > .credit1 {
+    font-size: 1.5em;
     display: flex;
     justify-content: center;
+    color: rgb(234, 129, 210);
+    margin-bottom: 20px;
     //background-color: red;
     width: 80%;
   }
   > .credit2 {
+    color: white;
     display: flex;
-    //background-color: pink;
+    font-size: 2em;
+    background-color: rgb(198, 192, 253);
     width: 80%;
-    justify-content: center;
-
+    justify-content: space-between;
+    margin-bottom: 20px;
     > .score1 {
       padding-left: 10%;
     }
   }
   > .credit3 {
     display: flex;
-    //background-color: pink;
+    background-color: pink;
+    font-size: 2em;
     width: 80%;
-    justify-content: center;
+    justify-content: space-between;
     margin: 10px;
     > .score2 {
       padding-left: 10%;
@@ -224,13 +252,13 @@
   > .reset {
     margin: 30px;
     > button {
-      height: 3.5em;
-      width: 3.5em;
-      font-size: 1em;
+      height: 5em;
+      width: 5em;
+      font-size: 2em;
       background-color: inherit;
       color: black;
       border-radius: 50%;
-      background-color: lightgray;
+      background-color: rgb(155, 157, 222);
       cursor: pointer;
       border: 1px solid transparent;
     }
@@ -248,7 +276,7 @@
       background-color: inherit;
       color: black;
       border-radius: 50%;
-      background-color: lightgray;
+      background-color: rgb(218, 144, 183);
       cursor: pointer;
       border: 1px solid transparent;
     }
