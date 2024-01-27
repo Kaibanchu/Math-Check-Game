@@ -79,7 +79,7 @@
     cursor: pointer;
     border: 1px solid transparent;
     margin-top: 10px;
-    background-color: rgb(233, 159, 12);
+    background-color: rgb(240, 212, 165);
   }
   > .game-start:hover {
     color: white;
@@ -98,7 +98,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    //background-color: yellow;
+    background-color: rgb(240, 212, 165);
     height: 3em;
 
     > .reset {
@@ -122,7 +122,7 @@
         border: 1px solid transparent;
       }
       > button:hover {
-        color: rgb(237, 159, 14);
+        color: rgb(240, 212, 165);
         opacity: 0.75;
       }
     }
@@ -131,45 +131,86 @@
       display: flex;
       justify-content: center;
       width: 2em;
-      font-size: 1.5em;
+      font-size: 2em;
       align-items: center;
-      color: rgb(167, 169, 228);
-      background-color: pink;
+      color: white;
+     // background-color: pink;
       border-radius: 50%;
     }
     > .count {
-      font-size: 1.3em;
-      color: rgb(212, 77, 212);
+      font-size: 1.5em;
+      color: rgb(41, 25, 41);
     }
   }
   > .game {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(236, 178, 70);
-    height: 1.5em;
-    font-size: 2em;
-    border-radius: 30px;
-    margin: 20px;
+    background-color: rgb(240, 212, 165);
+    height: 40%;
+    font-size: 3em;
+    color: white;
+    margin-bottom: 5px;
   }
 
   > .number {
-    margin-top: 40px;
-    margin-bottom: 40px;
     display: grid;
-    grid-template-areas:
-      "0 1"
-      "2 3";
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    grid-gap: 6px;
     justify-content: center;
     align-items: center;
-    grid-gap: 25px;
-    height: 50%;
-    background-color: rgb(189, 239, 226);
-    font-size: 1.25em;
-    min-height: var(--font-size);
-    min-width: var(--font-size);
-
+    height: 53%;
+   // background-color: rgb(189, 239, 226);
     > button {
+      height: 8em;
+      width: 8em;
+      &.n0 {  
+        height: 97%;
+        width:2.8em;
+        border-radius: 10%;
+        cursor: pointer;
+        border: 1px solid transparent;
+        font-size: 3.5em;
+        background-color: rgb(244, 244, 200);
+        color: rgb(192, 192, 29);
+      }
+    }
+    > .n1 {
+      height: 97%;
+      width: 2.7em;
+      border-radius: 10%;
+      cursor: pointer;
+      border: 1px solid transparent;
+      font-size: 3.5em;
+      background-color: rgb(245, 200, 224);
+      color: rgb(231, 34, 139);
+    }
+    > .n2 {
+      height: 97%;
+      width: 2.7em;
+      border-radius: 10%;
+      cursor: pointer;
+      border: 1px solid transparent;
+      font-size: 3.5em;
+      background-color: rgb(199, 232, 243);
+      color:  rgb(28, 166, 211);
+
+    }
+    > .n3 {
+     
+      height: 97%;
+      width: 2.7em;
+      border-radius: 10%;
+      cursor: pointer;
+      border: 1px solid transparent;
+      font-size: 3.5em;
+      background-color: rgb(168, 201, 240);
+      color: rgb(18, 110, 222);
+    }
+  }
+
+  /*  > button {
       height: 4em;
       width: 4em;
       border-radius: 10%;
@@ -184,9 +225,9 @@
 
     > button:hover {
       opacity: 0.75;
-    }
+    } */
   }
-  > .submit {
+/*  > .submit {
     display: flex;
     justify-content: center;
     font-size: 2.4em;
@@ -194,15 +235,14 @@
     cursor: pointer;
     //border: 1px solid transparent;
     margin-top: 30px;
-    background-color: rgb(233, 159, 12);
+    background-color: rgb(240, 212, 165);
     align-items: center;
     // margin-right: 20px;
     border-radius: 50%;
-  }
-  > .submit:hover {
+  } */
+/* > .submit:hover {
     color: white;
-  }
-}
+  } */
 
 .result {
   background-color: #f5f5f5;
@@ -263,7 +303,7 @@
       border: 1px solid transparent;
     }
     > button:hover {
-      color: rgb(237, 159, 14);
+      color: rgb(236, 234, 229);
       opacity: 0.75;
     }
   }
@@ -281,7 +321,7 @@
       border: 1px solid transparent;
     }
     > button:hover {
-      color: rgb(237, 159, 14);
+      color: rgb(240, 237, 233);
       opacity: 0.75;
     }
   }
