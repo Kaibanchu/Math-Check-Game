@@ -13,7 +13,7 @@ const Game = () => {
   const [bestScore, setBestScore] = useState([]);
   const [startGame, setStartGame] = useState(false);
   const [types, setTypes] = useState("");
-  const [groupTypes, setGroupTypes] = useState([]);
+  const [groupTypes, setGroupTypes] = useState(["+"]);
   const [wrong, setWrong] = useState(0);
   const [score, setScore] = useState(0);
   const [timeInput, setTimeInput] = useState("30");
@@ -25,6 +25,7 @@ const Game = () => {
   const [options, setOptions] = useState([]);
   const [checkAnswer, setCheckAnswer] = useState("");
   const [add, setAdd] = useState(false);
+  const [disable, setDisable] = useState(true);
 
   const handleSetTypes = (symbol) => {
     const indexTypes = groupTypes.findIndex((t) => t === symbol);
@@ -97,9 +98,10 @@ const Game = () => {
   }, [startGame, add]);
 
   const startGameHandler = () => {
-    if (!startGame) {
+    if (!startGame && disable) {
       setCount(timeInput);
       new Audio(soundReady).play();
+      setDisable(false)
       setTimeout(() => {
         setStartGame(true);
         generateQuestion();
@@ -120,7 +122,7 @@ const Game = () => {
         setTimeout(() => {
           generateQuestion();
           setSubmit(true);
-        }, 300);
+        }, 500);
       } else {
         new Audio("src/component/soundError.mp3").play();
         setTimeout(() => {
@@ -155,6 +157,7 @@ const Game = () => {
     setTypes("");
     setSubmit(false);
     setAdd(false);
+    setDisable(true);
   };
 
   useEffect(() => {
@@ -191,6 +194,7 @@ const Game = () => {
     setCheckAnswer("");
     setGroupTypes([]);
     setTypes("");
+    setDisable(true);
   };
   useEffect(() => {
     let interval = null;
