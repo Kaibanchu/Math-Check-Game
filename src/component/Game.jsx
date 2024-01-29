@@ -153,7 +153,7 @@ const Game = () => {
     setTimeInput("30");
     setOptions([]);
     setCheckAnswer("");
-    setGroupTypes([]);
+    setGroupTypes(["+"]);
     setTypes("");
     setSubmit(false);
     setAdd(false);
@@ -192,7 +192,7 @@ const Game = () => {
     setTimeInput("30");
     setOptions([]);
     setCheckAnswer("");
-    setGroupTypes([]);
+    setGroupTypes(["+"]);
     setTypes("");
     setDisable(true);
   };
