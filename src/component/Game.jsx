@@ -3,6 +3,9 @@ import { useState, useEffect } from "react";
 import "./Game.scss";
 import Confetti from "react-confetti";
 import soundReady from "./soundReady.mp3";
+import soundCorrect from "./soundCorrect.mp3";
+import soundError from "./soundError.mp3";
+import soundCongratulation from "./soundCongratulation.mp3";
 //import soundHurry from "./soundHurry.mp3";
 //const newScore= [];
 const symbols = ["+", "-", "x", "/"];
@@ -112,7 +115,7 @@ const Game = () => {
     if (count > 0) {
       //console.log(parseInt(result), parseInt(answer));
       if (number == answer) {
-        new Audio("src/component/soundCorrect.mp3").play();
+        new Audio(soundCorrect).play();
         setCount(timeInput); // gia lập giá trị nhập vao la 15
         setScore(score + 1);
         setAdd(true);
@@ -122,9 +125,9 @@ const Game = () => {
         setTimeout(() => {
           generateQuestion();
           setSubmit(true);
-        }, 500);
+        }, 300);
       } else {
-        new Audio("src/component/soundError.mp3").play();
+        new Audio(soundError).play();
         setTimeout(() => {
           setWrong(wrong + 1);
           setCount(0);
@@ -214,7 +217,7 @@ const Game = () => {
     if (startGame) {
       if (count === 0) setConfetti(true);
       if (count === 0) {
-        new Audio("src/component/soundCongratulation.mp3").play();
+        new Audio(soundCongratulation).play();
       }
     }
   }, [startGame, count]);
