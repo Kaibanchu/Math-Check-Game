@@ -13,6 +13,8 @@ const symbols = ["+", "-", "x", "/"];
 const Game = () => {
   const [min, setMin] = useState("1");
   const [max, setMax] = useState("6");
+  const [min2, setMin2] = useState("1");
+  const [max2, setMax2] = useState("6");
   const [bestScore, setBestScore] = useState([]);
   const [startGame, setStartGame] = useState(false);
   const [types, setTypes] = useState("");
@@ -49,10 +51,12 @@ const Game = () => {
   const generateQuestion = () => {
     const mins = min;
     const maxs = max;
+    const mins2 = min2;
+    const maxs2 = max2;
     const typesIndex = Math.floor(Math.random() * groupTypes.length);
     const types = groupTypes[typesIndex];
     const num1 = randomNumber(Number(mins), Number(maxs));
-    const num2 = randomNumber(Number(mins), Number(maxs));
+    const num2 = randomNumber(Number(mins2), Number(maxs2));
 
     if (types === "+") {
       setQuestion(`${num1} ${types} ${num2}`);
@@ -131,9 +135,10 @@ const Game = () => {
         setTimeout(() => {
           setWrong(wrong + 1);
           setCount(0);
+          setQuestion("");
         }, 3000);
         setAnswer("");
-        setQuestion("");
+        
       }
     }
   };
@@ -192,6 +197,8 @@ const Game = () => {
     setBestScore([]);
     setMin("1");
     setMax("6");
+    setMin2("1");
+    setMax2("6");
     setTimeInput("30");
     setOptions([]);
     setCheckAnswer("");
@@ -248,7 +255,8 @@ const Game = () => {
               />
             </div>
             <div className="input">
-              <span>Min:</span>
+              <span>Factory 1:</span>
+              <span>Min</span>
               <input
                 id="min"
                 type="text"
@@ -256,7 +264,7 @@ const Game = () => {
                 title="add number"
                 onChange={(e) => setMin(e.target.value)}
               />
-              <span>Max:</span>
+              <span>Max</span>
               <input
                 id="max"
                 type="text"
@@ -264,6 +272,26 @@ const Game = () => {
                 title="add number"
                 onChange={(e) => setMax(e.target.value)}
               />
+            </div>
+            <div className="input2">
+            <span>Factory 2:</span>
+              <span>Min</span>
+              <input
+                id="min2"
+                type="text"
+                value={min2}
+                title="add number"
+                onChange={(e) => setMin2(e.target.value)}
+              />
+              <span>Max</span>
+              <input
+                id="max2"
+                type="text"
+                value={max2}
+                title="add number"
+                onChange={(e) => setMax2(e.target.value)}
+              />
+
             </div>
             <div className="type">
               {symbols.map((symbol) => (

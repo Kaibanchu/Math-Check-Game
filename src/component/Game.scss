@@ -35,15 +35,35 @@
     margin-bottom: 10px;
 
     span {
+      margin: 3px;
       font-size: 1.2em;
     }
     input[type="text"] {
-      padding: 3px;
+    //  padding: 3px;
       margin-bottom: 5px;
       justify-content: center;
       align-items: center;
       height: 20px;
-      width: 70px;
+      width: 40px;
+      display: inline-block;
+      margin: 5px;
+      background-color: rgb(155, 157, 222);
+    }
+  }
+  > .input2 {
+    margin-bottom: 10px;
+
+    span {
+      margin: 3px;
+      font-size: 1.2em;
+    }
+    input[type="text"] {
+    //  padding: 3px;
+      margin-bottom: 5px;
+      justify-content: center;
+      align-items: center;
+      height: 20px;
+      width: 40px;
       display: inline-block;
       margin: 5px;
       background-color: rgb(155, 157, 222);
