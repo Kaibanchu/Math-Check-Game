@@ -157,6 +157,8 @@ const Game = () => {
     setConfetti(false);
     setMin("1");
     setMax("6");
+    setMin2("1");
+    setMax2("6");
     setTimeInput("30");
     setOptions([]);
     setCheckAnswer("");
