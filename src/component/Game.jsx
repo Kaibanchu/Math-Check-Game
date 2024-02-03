@@ -108,7 +108,7 @@ const Game = () => {
     if (!startGame && disable) {
       setCount(timeInput);
       new Audio(soundReady).play();
-      setDisable(false)
+      setDisable(false);
       setTimeout(() => {
         setStartGame(true);
         generateQuestion();
@@ -138,7 +138,6 @@ const Game = () => {
           setQuestion("");
         }, 3000);
         setAnswer("");
-        
       }
     }
   };
@@ -255,7 +254,7 @@ const Game = () => {
               />
             </div>
             <div className="input">
-              <span>Factory 1:</span>
+              <span>1st factor:</span>
               <span>Min</span>
               <input
                 id="min"
@@ -274,7 +273,7 @@ const Game = () => {
               />
             </div>
             <div className="input2">
-            <span>Factory 2:</span>
+              <span>2nd factor:</span>
               <span>Min</span>
               <input
                 id="min2"
@@ -291,7 +290,6 @@ const Game = () => {
                 title="add number"
                 onChange={(e) => setMax2(e.target.value)}
               />
-
             </div>
             <div className="type">
               {symbols.map((symbol) => (
