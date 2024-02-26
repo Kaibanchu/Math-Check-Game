@@ -17,7 +17,7 @@ const Game = () => {
   const [max2, setMax2] = useState("6");
   const [bestScore, setBestScore] = useState([]);
   const [startGame, setStartGame] = useState(false);
-  const [types, setTypes] = useState("");
+  // const [types, setTypes] = useState("");
   const [groupTypes, setGroupTypes] = useState(["+"]);
   const [wrong, setWrong] = useState(0);
   const [score, setScore] = useState(0);
@@ -105,7 +105,7 @@ const Game = () => {
   }, [startGame, add]);
 
   const startGameHandler = () => {
-    if (!startGame && disable) {
+    if (!startGame && disable && groupTypes.length !== 0) {
       setCount(timeInput);
       new Audio(soundReady).play();
       setDisable(false);
@@ -229,6 +229,7 @@ const Game = () => {
       }
     }
   }, [startGame, count]);
+  console.log(groupTypes.length);
 
   return (
     <>
@@ -264,6 +265,7 @@ const Game = () => {
                 value={min}
                 title="add number"
                 onChange={(e) => setMin(e.target.value)}
+                maxLength={"3"}
               />
               <span>Max</span>
               <input
@@ -272,6 +274,7 @@ const Game = () => {
                 value={max}
                 title="add number"
                 onChange={(e) => setMax(e.target.value)}
+                maxLength={"3"}
               />
             </div>
             <div className="input2">
@@ -283,6 +286,7 @@ const Game = () => {
                 value={min2}
                 title="add number"
                 onChange={(e) => setMin2(e.target.value)}
+                maxLength={"3"}
               />
               <span>Max</span>
               <input
@@ -291,6 +295,7 @@ const Game = () => {
                 value={max2}
                 title="add number"
                 onChange={(e) => setMax2(e.target.value)}
+                maxLength={"3"}
               />
             </div>
             <div className="type">
@@ -354,7 +359,7 @@ const Game = () => {
               </div>
             </div>
 
-            <div className="game">{question} = ?</div>
+            <div className="game"> {question} = ? </div>
             <div className="number">
               <button
                 className="n0"
@@ -415,7 +420,7 @@ const Game = () => {
               Best Score: <div className="score2">{maxScore}</div>{" "}
             </div>
             <div className="reset" onClick={handleReset}>
-              <button on>Go Back!</button>
+              <button>Go Back!</button>
             </div>
             <div className="clearStore" onClick={handleClearStore}>
               <button>Clear Score</button>
