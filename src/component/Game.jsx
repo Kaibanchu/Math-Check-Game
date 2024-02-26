@@ -229,7 +229,6 @@ const Game = () => {
       }
     }
   }, [startGame, count]);
-  console.log(groupTypes.length);
 
   return (
     <>
