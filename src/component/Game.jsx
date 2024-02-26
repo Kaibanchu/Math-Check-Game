@@ -17,7 +17,7 @@ const Game = () => {
   const [max2, setMax2] = useState("6");
   const [bestScore, setBestScore] = useState([]);
   const [startGame, setStartGame] = useState(false);
-  // const [types, setTypes] = useState("");
+  const [types, setTypes] = useState("");
   const [groupTypes, setGroupTypes] = useState(["+"]);
   const [wrong, setWrong] = useState(0);
   const [score, setScore] = useState(0);
