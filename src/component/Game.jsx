@@ -17,7 +17,7 @@ const Game = () => {
   const [max2, setMax2] = useState("6");
   const [bestScore, setBestScore] = useState([]);
   const [startGame, setStartGame] = useState(false);
-  const [types, setTypes] = useState("");
+  // const [types, setTypes] = useState(""); // use cho result
   const [groupTypes, setGroupTypes] = useState(["+"]);
   const [wrong, setWrong] = useState(0);
   const [score, setScore] = useState(0);
@@ -31,7 +31,12 @@ const Game = () => {
   const [checkAnswer, setCheckAnswer] = useState("");
   const [add, setAdd] = useState(false);
   const [disable, setDisable] = useState(true);
-
+  var mins = min;
+  var maxs = max;
+  var mins2 = min2;
+  var maxs2 = max2;
+  var time = timeInput;
+  var choice = groupTypes;
   const handleSetTypes = (symbol) => {
     const indexTypes = groupTypes.findIndex((t) => t === symbol);
     let prevTypes = [...groupTypes];
@@ -49,10 +54,10 @@ const Game = () => {
   };
 
   const generateQuestion = () => {
-    const mins = min;
-    const maxs = max;
-    const mins2 = min2;
-    const maxs2 = max2;
+    var mins = min;
+    var maxs = max;
+    var mins2 = min2;
+    var maxs2 = max2;
     const typesIndex = Math.floor(Math.random() * groupTypes.length);
     const types = groupTypes[typesIndex];
     const num1 = randomNumber(Number(mins), Number(maxs));
@@ -124,7 +129,7 @@ const Game = () => {
         setScore(score + 1);
         setAdd(true);
         setOptions([]);
-        setTypes("");
+        //  setTypes("");
 
         setTimeout(() => {
           generateQuestion();
@@ -155,15 +160,15 @@ const Game = () => {
     setQuestion("");
     setAnswer("");
     setConfetti(false);
-    setMin("1");
-    setMax("6");
-    setMin2("1");
-    setMax2("6");
-    setTimeInput("30");
+    setMin(mins);
+    setMax(maxs);
+    setMin2(mins2);
+    setMax2(maxs2);
+    setTimeInput(time);
     setOptions([]);
     setCheckAnswer("");
-    setGroupTypes(["+"]);
-    setTypes("");
+    setGroupTypes(choice);
+    // setTypes("");
     setSubmit(false);
     setAdd(false);
     setDisable(true);
@@ -204,7 +209,7 @@ const Game = () => {
     setOptions([]);
     setCheckAnswer("");
     setGroupTypes(["+"]);
-    setTypes("");
+    //  setTypes("");
     setDisable(true);
   };
   useEffect(() => {
@@ -365,7 +370,7 @@ const Game = () => {
                 key={options[0]}
                 onClick={() => {
                   handleCheckAnwer(options[0]),
-                    setTypes(options[0]),
+                    //  setTypes(options[0]),
                     handleSubmit(options[0]);
                 }}
               >
@@ -376,7 +381,7 @@ const Game = () => {
                 key={options[1]}
                 onClick={() => {
                   handleCheckAnwer(options[1]),
-                    setTypes(options[1]),
+                    //  setTypes(options[1]),
                     handleSubmit(options[1]);
                 }}
               >
@@ -388,7 +393,7 @@ const Game = () => {
                 key={options[2]}
                 onClick={() => {
                   handleCheckAnwer(options[2]),
-                    setTypes(options[2]),
+                    //  setTypes(options[2]),
                     handleSubmit(options[2]);
                 }}
               >
@@ -399,7 +404,7 @@ const Game = () => {
                 key={options[3]}
                 onClick={() => {
                   handleCheckAnwer(options[3]),
-                    setTypes(options[3]),
+                    //   setTypes(options[3]),
                     handleSubmit(options[3]);
                 }}
               >
